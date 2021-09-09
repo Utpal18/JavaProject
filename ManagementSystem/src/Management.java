@@ -3,10 +3,15 @@ import java.sql.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -16,17 +21,21 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Management {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField book_id;
+	private JTextField book_name;
+	private JTextField book_edition;
+	private JTextField book_price;
+	private JTextField book_author;
 	private JTable table;
-	private JTextField textField_5;
+	private JTextField book_search;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -50,26 +59,48 @@ public class Management {
 	public Management() {
 		initialize();
 		Connect();
+		table_load(); 
 	}
 	
 	
-	PreparedStatement pst;
+	Connection connection;
+	ResultSet rs;
 	
 	
-	
-	public static void Connect()
+	public void Connect()
 	{
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/ManagementSystem(Java)","root","Utpal@9843");
-		}
-		catch (ClassNotFoundException ex) {
+			String url = "jdbc:mysql://localhost:3306/book_store";
+        	String user = "root";
+        	String pass = "Utpal@9843";
+        	
+
 			
+			connection= DriverManager.getConnection(url,user,pass);
 		}
 		catch (SQLException ex) {
 			
 		}
 	}
+	
+	
+	// Viewing the table
+	
+	public void table_load() {
+		
+		try {
+			PreparedStatement preparedStmt = connection.prepareStatement("select * from books");
+			rs = preparedStmt.executeQuery();
+			table.setModel(DbUtils.resultSetToTableModel (rs));
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+			
 	
 	
 
@@ -123,39 +154,94 @@ public class Management {
 		lblNewLabel_1_4.setBounds(10, 186, 103, 13);
 		panel.add(lblNewLabel_1_4);
 		
-		textField = new JTextField();
-		textField.setBounds(111, 46, 208, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		book_id = new JTextField();
+		book_id.setBounds(111, 46, 208, 19);
+		panel.add(book_id);
+		book_id.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(111, 81, 208, 19);
-		panel.add(textField_1);
+		book_name = new JTextField();
+		book_name.setColumns(10);
+		book_name.setBounds(111, 81, 208, 19);
+		panel.add(book_name);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(111, 117, 208, 19);
-		panel.add(textField_2);
+		book_edition = new JTextField();
+		book_edition.setColumns(10);
+		book_edition.setBounds(111, 117, 208, 19);
+		panel.add(book_edition);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(111, 149, 208, 19);
-		panel.add(textField_3);
+		book_price = new JTextField();
+		book_price.setColumns(10);
+		book_price.setBounds(111, 149, 208, 19);
+		panel.add(book_price);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(111, 184, 208, 19);
-		panel.add(textField_4);
+		book_author = new JTextField();
+		book_author.setColumns(10);
+		book_author.setBounds(111, 184, 208, 19);
+		panel.add(book_author);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(445, 62, 372, 269);
-		frame.getContentPane().add(scrollPane);
+		JScrollPane list = new JScrollPane();
+		list.setBounds(445, 62, 372, 269);
+		frame.getContentPane().add(list);
 		
 		table = new JTable();
-		scrollPane.setViewportView(table);
+		list.setViewportView(table);
+		
+		
+		// adding the data
 		
 		JButton btnNewButton = new JButton("Save");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int b_id;
+				String b_name,b_edition,b_author;
+				int b_price;
+				
+
+				
+				b_id = Integer.parseInt(book_id.getText());
+				b_name = book_name.getText();
+				b_edition = book_edition.getText();
+				b_price = Integer.parseInt(book_price.getText());
+				b_author = book_author.getText();
+				
+					try {
+						
+						String query = " insert into books (book_id,book_name,edition,price,author)"
+                                + " values (?,?,?,?,?)";
+
+                        Statement sta = connection.createStatement();
+                        
+                        PreparedStatement preparedStmt = connection.prepareStatement(query);
+                        preparedStmt.setInt (1, b_id);
+                        preparedStmt.setString (2, b_name);
+                        preparedStmt.setString (3, b_edition);
+                        preparedStmt.setInt (4, b_price);
+                        preparedStmt.setString (5, b_author);
+              
+                        
+                        
+                        preparedStmt.execute();
+						JOptionPane.showMessageDialog(null,"Record added Successfully!");
+						
+						//clears the screen after adding
+					book_id.setText("");
+					book_name.setText("");
+					book_edition.setText("");						
+					book_price.setText("");
+					book_author.setText("");
+					book_id.requestFocus();
+						
+					}
+					catch (SQLException el) {
+						el.printStackTrace();
+					}
+				
+				
+				
+				
+			}
+		});
 		btnNewButton.setBounds(41, 296, 98, 35);
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.setFont(new Font("Montserrat", Font.BOLD, 12));
@@ -166,6 +252,15 @@ public class Management {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		});
 		btnUpdate.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
@@ -186,17 +281,89 @@ public class Management {
 		lblNewLabel_1_5.setBounds(22, 25, 103, 13);
 		panel_1.add(lblNewLabel_1_5);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(121, 23, 208, 19);
-		panel_1.add(textField_5);
+		
+		
+		
+		// searching of books
+		
+		book_search = new JTextField();
+		book_search.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				 try {
+			          
+			            String id = book_search.getText();
+
+			            PreparedStatement preparedStmt = connection.prepareStatement("select book_id,book_name,edition,price,author from books where book_id = ?");
+			            preparedStmt.setString(1, id);
+			                ResultSet rs = preparedStmt.executeQuery();
+
+			            if(rs.next()==true)
+			            {
+			              
+			                String bookid= rs.getString(1);
+			                String bookname = rs.getString(2);
+			                String bookedition = rs.getString(3);
+			                String bookprice = rs.getString(4);
+			                String bookauthor = rs.getString(5);
+			                
+			               book_id.setText(bookid);
+			               book_name.setText(bookname);
+			               book_edition.setText(bookedition);
+			               book_price.setText(bookprice);
+			               book_author.setText(bookauthor);
+			             
+			                
+			                
+			            }   
+			            else
+			            {
+			            	  book_id.setText("");
+				               book_name.setText("");
+				               book_edition.setText("");
+				               book_price.setText("");
+				               book_author.setText("");
+			                 
+			            }
+			            
+
+
+			        } 
+				
+				 catch (SQLException ex) {
+			           
+			        }
+				
+			}
+		});
+		book_search.setColumns(10);
+		book_search.setBounds(121, 23, 208, 19);
+		panel_1.add(book_search);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				book_id.setText("");
+				book_name.setText("");
+				book_edition.setText("");						
+				book_price.setText("");
+				book_author.setText("");
+				book_id.requestFocus();
+				
+			}
+		});
 		btnClear.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnClear.setBounds(586, 367, 98, 35);
 		frame.getContentPane().add(btnClear);
 		
 		JButton btnNewButton_1_1 = new JButton("Exit");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnNewButton_1_1.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnNewButton_1_1.setBounds(717, 367, 98, 35);
 		frame.getContentPane().add(btnNewButton_1_1);
