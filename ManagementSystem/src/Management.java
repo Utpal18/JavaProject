@@ -246,21 +246,22 @@ public class Management {
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
+		
+		// Updating data
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.setBounds(178, 296, 98, 35);
 		frame.getContentPane().add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
+				
+				
+				
+				
+				
+				
+				
+				
+			}	
 		});
 		btnUpdate.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
@@ -367,5 +368,27 @@ public class Management {
 		btnNewButton_1_1.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnNewButton_1_1.setBounds(717, 367, 98, 35);
 		frame.getContentPane().add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1 = new JButton("Refresh");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					PreparedStatement preparedStmt = connection.prepareStatement("select * from books");
+					rs = preparedStmt.executeQuery();
+					table.setModel(DbUtils.resultSetToTableModel (rs));
+				}
+				catch (SQLException f){
+					f.printStackTrace();
+				}
+				
+			}
+			
+				
+			
+		});
+		btnNewButton_1.setFont(new Font("Montserrat", Font.BOLD, 10));
+		btnNewButton_1.setBounds(729, 336, 85, 21);
+		frame.getContentPane().add(btnNewButton_1);
 	}
 }
