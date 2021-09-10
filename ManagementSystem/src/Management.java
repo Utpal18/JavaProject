@@ -266,6 +266,42 @@ public class Management {
 		btnUpdate.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String query = " delete from books where book_id=?";
+				
+				 int bid;
+					bid  = Integer.parseInt(book_search.getText());
+					
+					 try {
+						 PreparedStatement preparedStmt = connection.prepareStatement(query);
+					
+						 preparedStmt.setInt(1, bid);
+						 preparedStmt.executeUpdate();
+				            JOptionPane.showMessageDialog(null, "Record Deleted Successfully!");
+				            table_load();
+				           
+				            book_id.setText("");
+							book_name.setText("");
+							book_edition.setText("");						
+							book_price.setText("");
+							book_author.setText("");
+							book_id.requestFocus();
+								
+						}
+		 
+			            catch (SQLException e1) {
+							
+							e1.printStackTrace();
+						}
+				
+				
+				
+				
+				
+				
+			}
+		});
 		btnDelete.setBounds(312, 296, 98, 35);
 		frame.getContentPane().add(btnDelete);
 		btnDelete.setFont(new Font("Montserrat", Font.BOLD, 12));
