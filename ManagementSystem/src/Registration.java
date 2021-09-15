@@ -1,17 +1,23 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.SwingConstants;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.Connection;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+
 
 public class Registration {
 
@@ -22,12 +28,11 @@ public class Registration {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JPasswordField passwordField;
-	private JTextField textField_5;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void runRegis() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -91,12 +96,6 @@ public class Registration {
 		lblNewLabel_1_3.setBounds(10, 137, 108, 27);
 		panel.add(lblNewLabel_1_3);
 		
-		JLabel lblNewLabel_1_4 = new JLabel("Confirm Password:");
-		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1_4.setFont(new Font("Montserrat", Font.BOLD, 14));
-		lblNewLabel_1_4.setBounds(10, 174, 150, 27);
-		panel.add(lblNewLabel_1_4);
-		
 		JLabel lblNewLabel_1_3_1 = new JLabel("Address:");
 		lblNewLabel_1_3_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_3_1.setFont(new Font("Montserrat", Font.BOLD, 14));
@@ -138,11 +137,6 @@ public class Registration {
 		passwordField.setBounds(219, 142, 329, 24);
 		panel.add(passwordField);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(219, 179, 329, 24);
-		panel.add(textField_5);
-		
 		JButton btnClear = new JButton("Clear");
 		btnClear.setFont(new Font("Montserrat", Font.BOLD, 10));
 		btnClear.addActionListener(new ActionListener() {
@@ -155,6 +149,63 @@ public class Registration {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                String fullName = textField.getText();
+                String emailId = textField_1.getText();
+                String userName = textField_2.getText();
+                String mobileNumber = textField_4.getText();
+				String password = passwordField.getText();
+				String address = textField_3.getText();
+                
+            	String url = "jdbc:mysql://127.0.0.1:3306/book_store";
+            	String user = "root";
+            	String pass = "Utpal@9843";
+
+                String greet = "" + fullName;
+                greet += " \n";
+                
+                if (fullName.isEmpty() && emailId.isEmpty() && userName.isEmpty() && mobileNumber.isEmpty() && password.isEmpty()) {
+                	JOptionPane.showMessageDialog(btnSubmit, "Enter valid details");
+                }else {
+                	try {
+                        Connection connection = DriverManager.getConnection(url,user,pass);
+                        
+
+                        String query = " insert into registration (name, user_name, email_id, password, mobile_number, address)"
+                                + " values (?, ?, ?, ?, ?, ?)";
+
+                        Statement sta = connection.createStatement();
+                       
+                       
+                        PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+                        preparedStmt.setString (1, fullName);
+                        preparedStmt.setString (2, userName);
+                        preparedStmt.setString (3, emailId);
+                        preparedStmt.setString (4, password);
+                        preparedStmt.setString (5, mobileNumber);
+                        preparedStmt.setString (6, address);
+                        
+                        
+                        boolean x = preparedStmt.execute();
+                        if (x == true) {
+                            JOptionPane.showMessageDialog(btnSubmit, "Account not created");
+                        } else {
+                            JOptionPane.showMessageDialog(btnSubmit,
+                                "Welcome, " + greet + "Your account is sucessfully created");
+                        }
+                        connection.close();
+                        
+                        frame.dispose();
+                        UserLogin callLogin = new UserLogin();
+                        callLogin.main(null);
+                        
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+				
+				
+				
+			}
 			}
 		});
 		btnSubmit.setFont(new Font("Montserrat", Font.BOLD, 10));

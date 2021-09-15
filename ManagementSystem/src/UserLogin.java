@@ -4,13 +4,24 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
+
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserLogin {
 
@@ -75,6 +86,42 @@ public class UserLogin {
 		frame.getContentPane().add(passwordField);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+                String userName = textField.getText();
+                String password = passwordField.getText();
+                
+                String url = "jdbc:mysql://127.0.0.1:3306/book_store";
+            	String user = "root";
+            	String pass = "Utpal@9843";
+            	
+                try {
+                    Connection connection = (Connection) DriverManager.getConnection(url, user, pass);
+
+                    PreparedStatement st = (PreparedStatement) connection
+                        .prepareStatement("Select user_name, password from registration where user_name=? and password=?");
+
+                    st.setString(1, userName);
+                    st.setString(2, password);
+                    ResultSet rs = st.executeQuery();
+
+                    if (rs.next()) {
+                    	JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
+                    	frame.dispose();
+                    	Management call = new Management();   
+                    	call.runMain();
+                    } else {
+                        JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
+                    }
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
+			}
+				
+				
+			
+		});
 		btnNewButton.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnNewButton.setBounds(72, 219, 346, 28);
 		frame.getContentPane().add(btnNewButton);
@@ -82,6 +129,21 @@ public class UserLogin {
 		JPanel panel = new JPanel();
 		panel.setBounds(24, 65, 459, 253);
 		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Registration callAcc = new Registration();
+				callAcc.runRegis();
+				
+				
+			}
+		});
+		btnRegister.setFont(new Font("Montserrat", Font.BOLD, 12));
+		btnRegister.setBounds(48, 191, 346, 28);
+		panel.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		Image img= new ImageIcon(this.getClass().getResource("/Login.png")).getImage();

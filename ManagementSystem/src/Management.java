@@ -40,7 +40,7 @@ public class Management {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public void runMain() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -222,7 +222,7 @@ public class Management {
                         
                         
                         preparedStmt.execute();
-						JOptionPane.showMessageDialog(null,"Record added Successfully.");
+						JOptionPane.showMessageDialog(null,"Record added Successfully!");
 						
 						//clears the screen after adding
 					book_id.setText("");
@@ -278,7 +278,7 @@ public class Management {
 					
 						 preparedStmt.setInt(1, bid);
 						 preparedStmt.executeUpdate();
-				            JOptionPane.showMessageDialog(null, "Record Deleted Successfully.");
+				            JOptionPane.showMessageDialog(null, "Record Deleted Successfully!");
 				            table_load();
 				           
 				            book_id.setText("");
