@@ -7,12 +7,15 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -242,6 +245,8 @@ public class Management {
 				
 			}
 		});
+		Image img= new ImageIcon(this.getClass().getResource("/s.png")).getImage();
+		btnNewButton.setIcon(new ImageIcon(img));
 		btnNewButton.setBounds(41, 296, 98, 35);
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.setFont(new Font("Montserrat", Font.BOLD, 12));
@@ -249,7 +254,7 @@ public class Management {
 		
 		// Updating data
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(178, 296, 98, 35);
+		btnUpdate.setBounds(169, 296, 107, 35);
 		frame.getContentPane().add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -306,6 +311,8 @@ public class Management {
 				
 			}	
 		});
+		Image img1= new ImageIcon(this.getClass().getResource("/u.png")).getImage();
+		btnUpdate.setIcon(new ImageIcon(img1));
 		btnUpdate.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
 		JButton btnDelete = new JButton("Delete");
@@ -345,6 +352,8 @@ public class Management {
 				
 			}
 		});
+		Image img2= new ImageIcon(this.getClass().getResource("/d.png")).getImage();
+		btnDelete.setIcon(new ImageIcon(img2));
 		btnDelete.setBounds(312, 296, 98, 35);
 		frame.getContentPane().add(btnDelete);
 		btnDelete.setFont(new Font("Montserrat", Font.BOLD, 12));
@@ -444,6 +453,8 @@ public class Management {
 				System.exit(0);
 			}
 		});
+		Image img3= new ImageIcon(this.getClass().getResource("/e.png")).getImage();
+		btnNewButton_1_1.setIcon(new ImageIcon(img3));
 		btnNewButton_1_1.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnNewButton_1_1.setBounds(717, 367, 98, 35);
 		frame.getContentPane().add(btnNewButton_1_1);
@@ -466,8 +477,10 @@ public class Management {
 				
 			
 		});
+		Image img4= new ImageIcon(this.getClass().getResource("/r.png")).getImage();
+		btnNewButton_1.setIcon(new ImageIcon(img4));
 		btnNewButton_1.setFont(new Font("Montserrat", Font.BOLD, 10));
-		btnNewButton_1.setBounds(729, 336, 85, 21);
+		btnNewButton_1.setBounds(699, 336, 115, 21);
 		frame.getContentPane().add(btnNewButton_1);
 	}
 }
