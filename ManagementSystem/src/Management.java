@@ -254,6 +254,49 @@ public class Management {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int b_id;
+				String b_name,b_edition,b_author;
+				int b_price;
+				
+
+				
+				b_id = Integer.parseInt(book_id.getText());
+				b_name = book_name.getText();
+				b_edition = book_edition.getText();
+				b_price = Integer.parseInt(book_price.getText());
+				b_author = book_author.getText();
+				
+					try {
+						
+						String query = (" update books set  book_name=?,edition=?,price=?,author=? where book_id=?");
+                              
+
+                        Statement sta = connection.createStatement();
+                        
+                        PreparedStatement preparedStmt = connection.prepareStatement(query);
+                        
+                        preparedStmt.setString (1, b_name);
+                        preparedStmt.setString (2, b_edition);
+                        preparedStmt.setInt (3, b_price);
+                        preparedStmt.setString (4, b_author);
+                        preparedStmt.setInt (5, b_id);
+                        
+                        
+                        preparedStmt.executeUpdate();
+						JOptionPane.showMessageDialog(null,"Record updated Successfully!");
+						
+						//clears the screen after adding
+					book_id.setText("");
+					book_name.setText("");
+					book_edition.setText("");						
+					book_price.setText("");
+					book_author.setText("");
+					book_id.requestFocus();
+						
+					}
+					catch (SQLException el) {
+						el.printStackTrace();
+					}
 				
 				
 				
