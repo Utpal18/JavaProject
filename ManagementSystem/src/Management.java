@@ -26,6 +26,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.SystemColor;
 
 public class Management {
 
@@ -112,72 +113,86 @@ public class Management {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(112, 128, 144));
 		frame.setBounds(100, 100, 883, 461);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Book Store");
+		lblNewLabel.setForeground(new Color(255, 250, 240));
 		lblNewLabel.setFont(new Font("Montserrat ExtraBold", Font.BOLD, 25));
-		lblNewLabel.setBounds(301, -36, 239, 108);
+		lblNewLabel.setBounds(333, -35, 239, 108);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(119, 136, 153));
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Book Registration", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(10, 63, 428, 223);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Book ID:");
+		lblNewLabel_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 48, 103, 13);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Book Name:");
+		lblNewLabel_1_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_1.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(10, 83, 103, 13);
 		panel.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Edition:");
+		lblNewLabel_1_2.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_2.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_2.setBounds(10, 119, 103, 13);
 		panel.add(lblNewLabel_1_2);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Price:");
+		lblNewLabel_1_3.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_3.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_3.setBounds(10, 151, 103, 13);
 		panel.add(lblNewLabel_1_3);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Author:");
+		lblNewLabel_1_4.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_4.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_4.setBounds(10, 186, 103, 13);
 		panel.add(lblNewLabel_1_4);
 		
 		book_id = new JTextField();
+		book_id.setForeground(new Color(0, 0, 0));
+		book_id.setBackground(new Color(230, 230, 250));
 		book_id.setBounds(111, 46, 208, 19);
 		panel.add(book_id);
 		book_id.setColumns(10);
 		
 		book_name = new JTextField();
+		book_name.setBackground(new Color(230, 230, 250));
 		book_name.setColumns(10);
 		book_name.setBounds(111, 81, 208, 19);
 		panel.add(book_name);
 		
 		book_edition = new JTextField();
+		book_edition.setBackground(new Color(230, 230, 250));
 		book_edition.setColumns(10);
 		book_edition.setBounds(111, 117, 208, 19);
 		panel.add(book_edition);
 		
 		book_price = new JTextField();
+		book_price.setBackground(new Color(230, 230, 250));
 		book_price.setColumns(10);
 		book_price.setBounds(111, 149, 208, 19);
 		panel.add(book_price);
 		
 		book_author = new JTextField();
+		book_author.setBackground(new Color(230, 230, 250));
 		book_author.setColumns(10);
 		book_author.setBounds(111, 184, 208, 19);
 		panel.add(book_author);
@@ -193,6 +208,7 @@ public class Management {
 		// adding the data
 		
 		JButton btnNewButton = new JButton("Save");
+		btnNewButton.setBackground(new Color(230, 230, 250));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -254,6 +270,7 @@ public class Management {
 		
 		// Updating data
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBackground(new Color(230, 230, 250));
 		btnUpdate.setBounds(169, 296, 107, 35);
 		frame.getContentPane().add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
@@ -316,6 +333,7 @@ public class Management {
 		btnUpdate.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.setBackground(new Color(230, 230, 250));
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String query = " delete from books where book_id=?";
@@ -359,12 +377,14 @@ public class Management {
 		btnDelete.setFont(new Font("Montserrat", Font.BOLD, 12));
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(119, 136, 153));
 		panel_1.setBorder(new TitledBorder(null, "Search", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 353, 428, 61);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("Book ID:");
+		lblNewLabel_1_5.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_5.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_5.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_5.setBounds(22, 25, 103, 13);
@@ -376,6 +396,7 @@ public class Management {
 		// searching of books
 		
 		book_search = new JTextField();
+		book_search.setBackground(new Color(230, 230, 250));
 		book_search.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -431,6 +452,7 @@ public class Management {
 		panel_1.add(book_search);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.setBackground(new Color(230, 230, 250));
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -448,6 +470,7 @@ public class Management {
 		frame.getContentPane().add(btnClear);
 		
 		JButton btnNewButton_1_1 = new JButton("Exit");
+		btnNewButton_1_1.setBackground(new Color(230, 230, 250));
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -460,6 +483,7 @@ public class Management {
 		frame.getContentPane().add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1 = new JButton("Refresh");
+		btnNewButton_1.setBackground(new Color(230, 230, 250));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

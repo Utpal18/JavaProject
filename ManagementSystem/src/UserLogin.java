@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class UserLogin {
 
@@ -57,35 +58,42 @@ public class UserLogin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(112, 128, 144));
 		frame.setBounds(100, 100, 695, 395);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login To Your Account");
+		lblNewLabel.setForeground(new Color(255, 250, 240));
 		lblNewLabel.setFont(new Font("Montserrat", Font.BOLD, 24));
 		lblNewLabel.setBounds(198, 10, 338, 44);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Username:");
+		lblNewLabel_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(72, 93, 142, 43);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Password:");
+		lblNewLabel_1_1.setForeground(new Color(255, 250, 240));
 		lblNewLabel_1_1.setFont(new Font("Montserrat", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(72, 146, 142, 44);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		textField = new JTextField();
+		textField.setBackground(new Color(230, 230, 250));
 		textField.setBounds(199, 102, 219, 28);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.setBackground(new Color(230, 230, 250));
 		passwordField.setBounds(198, 160, 219, 28);
 		frame.getContentPane().add(passwordField);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setBackground(new Color(230, 230, 250));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -127,11 +135,13 @@ public class UserLogin {
 		frame.getContentPane().add(btnNewButton);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(119, 136, 153));
 		panel.setBounds(24, 65, 459, 253);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setBackground(new Color(230, 230, 250));
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
