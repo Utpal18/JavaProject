@@ -156,6 +156,18 @@ public class Registration {
 		btnClear.setFont(new Font("Montserrat", Font.BOLD, 10));
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+
+				textField.setText("");
+				textField_1.setText("");
+				textField_2.setText("");						
+				textField_4.setText("");
+				passwordField.setText("");
+				textField_3.setText("");
+				textField.requestFocus();
+				
+			
+			
 			}
 		});
 		btnClear.setBounds(506, 369, 85, 21);
